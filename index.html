@@ -295,6 +295,21 @@ a:hover { color: var(--color-primary); }
   margin-bottom: 2rem;
 }
 
+.hero-video {
+  margin-top: 2.5rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-video video {
+  width: 100%;
+  display: block;
+}
+
 /* ============================================
    BUTTONS
    ============================================ */
@@ -588,6 +603,11 @@ a:hover { color: var(--color-primary); }
         <h1>Industrial Cleaning Solutions</h1>
         <p>Premium cleaning chemicals and sustainable Tennant scrubber recycling services for Costco warehouses nationwide. Expert technical support from a team that understands your operation.</p>
         <a href="#contact" class="btn btn-primary">Get in Touch</a>
+        <div class="hero-video">
+          <video autoplay loop muted playsinline>
+            <source src="IMG_2088_1770796089083.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
     </section>
 
