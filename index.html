@@ -10,7 +10,7 @@
    DESIGN TOKENS
    ============================================ */
 :root {
-  /* Colors — matched to logo: blue "Clean", red "Tech", sky-blue swirl */
+  /* Colors â€” matched to logo: blue "Clean", red "Tech", sky-blue swirl */
   --color-primary: #0047AB;
   --color-primary-light: #2196F3;
   --color-primary-dark: #002D6B;
@@ -481,6 +481,35 @@ a:hover { color: var(--color-primary); }
   font-weight: 600;
 }
 
+.form-message {
+  text-align: center;
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-top: 1rem;
+  font-weight: 600;
+  display: none;
+}
+
+.form-message.success {
+  display: block;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+.form-message.error {
+  display: block;
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* ============================================
    FOOTER
    ============================================ */
@@ -575,7 +604,7 @@ a:hover { color: var(--color-primary); }
             </div>
             <h3>Sanitation Chemicals</h3>
             <!-- PLACEHOLDER: Client to provide actual product description -->
-            <p class="placeholder">Description of your sanitation chemical products — their formulations, recommended applications in warehouse environments, and key safety and compliance details.</p>
+            <p class="placeholder">Description of your sanitation chemical products â€” their formulations, recommended applications in warehouse environments, and key safety and compliance details.</p>
           </div>
 
           <div class="card animate-in">
@@ -584,7 +613,7 @@ a:hover { color: var(--color-primary); }
             </div>
             <h3>Heavy-Duty Industrial Degreaser</h3>
             <!-- PLACEHOLDER: Client to provide actual product description -->
-            <p class="placeholder">Description of your industrial degreaser — its strength, safety profile, dilution ratios, and recommended use cases for warehouse floor care and equipment maintenance.</p>
+            <p class="placeholder">Description of your industrial degreaser â€” its strength, safety profile, dilution ratios, and recommended use cases for warehouse floor care and equipment maintenance.</p>
           </div>
 
           <div class="card animate-in">
@@ -593,7 +622,7 @@ a:hover { color: var(--color-primary); }
             </div>
             <h3>Defoaming Powder Tablets</h3>
             <!-- PLACEHOLDER: Client to provide actual product description -->
-            <p class="placeholder">Description of your defoaming tablets — how they work, dosage information, compatibility with Tennant scrubber machines, and ordering details.</p>
+            <p class="placeholder">Description of your defoaming tablets â€” how they work, dosage information, compatibility with Tennant scrubber machines, and ordering details.</p>
           </div>
 
         </div>
@@ -604,7 +633,7 @@ a:hover { color: var(--color-primary); }
     <section class="section-scrubbers" id="scrubbers">
       <div class="container">
         <h2 class="section-title">Scrubber Services</h2>
-        <p class="section-subtitle">Tennant scrubber recycling and pickup for Costco warehouses — fast, free, and environmentally responsible.</p>
+        <p class="section-subtitle">Tennant scrubber recycling and pickup for Costco warehouses â€” fast, free, and environmentally responsible.</p>
         <div class="card-grid">
 
           <div class="card animate-in">
@@ -641,6 +670,12 @@ a:hover { color: var(--color-primary); }
         <h2 class="section-title">Contact Us</h2>
         <p class="section-subtitle">Ready to schedule a pickup or place an order? Fill out the form below and we'll be in touch.</p>
         <form id="contact-form" class="contact-form">
+          <!-- Formsubmit.co configuration -->
+          <input type="hidden" name="_subject" value="Cleaning Tech Inquiry">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <!-- Honeypot spam filter -->
+          <input type="text" name="_honey" style="display:none">
           <div class="form-grid">
             <div class="form-group">
               <label for="costco-number">Costco Number</label>
@@ -678,7 +713,8 @@ a:hover { color: var(--color-primary); }
           <div class="form-submit">
             <button type="submit" class="btn btn-primary">Send Message</button>
           </div>
-          <p class="form-note">This will open your default email client. You can also reach us directly at <a href="tel:+17148411861">(714) 841-1861</a> or <a href="mailto:steve@cleaning-tech.com">steve@cleaning-tech.com</a>.</p>
+          <div id="form-message" class="form-message"></div>
+          <p class="form-note">You can also reach us directly at <a href="tel:+17148411861">(714) 841-1861</a> or <a href="mailto:steve@cleaning-tech.com">steve@cleaning-tech.com</a>.</p>
         </form>
       </div>
     </section>
@@ -759,35 +795,49 @@ a:hover { color: var(--color-primary); }
     });
 
     /* ============================================
-       MAILTO FORM HANDLER
+       FORMSUBMIT.CO AJAX HANDLER
        ============================================ */
     const CONTACT_EMAIL = 'steve@cleaning-tech.com';
+    const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/' + CONTACT_EMAIL;
 
     document.getElementById('contact-form').addEventListener('submit', (e) => {
       e.preventDefault();
 
       const form = e.target;
-      const data = new FormData(form);
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const messageDiv = document.getElementById('form-message');
 
-      const subject = encodeURIComponent(
-        'Cleaning Tech Inquiry - Store #' + (data.get('store-number') || 'N/A')
-      );
+      // Reset message
+      messageDiv.className = 'form-message';
+      messageDiv.textContent = '';
 
-      const bodyLines = [
-        'Costco Number: ' + (data.get('costco-number') || 'N/A'),
-        'Store Number: ' + (data.get('store-number') || 'N/A'),
-        'Store Location: ' + (data.get('store-location') || 'N/A'),
-        'Contact Name: ' + (data.get('contact-name') || 'N/A'),
-        'Contact Phone: ' + (data.get('contact-phone') || 'N/A'),
-        'Warehouse Receiving Phone: ' + (data.get('warehouse-phone') || 'N/A'),
-        'Tennant Model Number: ' + (data.get('tennant-model') || 'N/A'),
-        '',
-        'Notes:',
-        data.get('notes') || 'None'
-      ];
+      // Disable button while submitting
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
 
-      const body = encodeURIComponent(bodyLines.join('\n'));
-      window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
+      fetch(FORMSUBMIT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          messageDiv.className = 'form-message success';
+          messageDiv.textContent = 'Thank you! Your message has been sent. We\'ll be in touch shortly.';
+          form.reset();
+        } else {
+          throw new Error('Submission failed');
+        }
+      })
+      .catch(() => {
+        messageDiv.className = 'form-message error';
+        messageDiv.textContent = 'Something went wrong. Please call us at (714) 841-1861 or email steve@cleaning-tech.com directly.';
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      });
     });
   </script>
 
