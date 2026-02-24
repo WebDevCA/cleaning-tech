@@ -5,601 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Cleaning Tech - Premium industrial cleaning chemicals and sustainable Tennant scrubber recycling services for Costco warehouses nationwide.">
   <title>Cleaning Tech | Industrial Cleaning Solutions</title>
-  <style>
-/* ============================================
-   DESIGN TOKENS
-   ============================================ */
-:root {
-  /* Colors — matched to logo: blue "Clean", red "Tech", sky-blue swirl */
-  --color-primary: #0047AB;
-  --color-primary-light: #2196F3;
-  --color-primary-dark: #002D6B;
-  --color-sky: #42B4F4;
-  --color-accent: #D32F2F;
-  --color-accent-hover: #B71C1C;
-  --color-white: #ffffff;
-  --color-gray-50: #f8f9fa;
-  --color-gray-100: #e9ecef;
-  --color-gray-200: #dee2e6;
-  --color-gray-600: #6c757d;
-  --color-gray-800: #343a40;
-  --color-gray-900: #212529;
-  --color-placeholder-bg: #fff8e1;
-  --color-placeholder-border: #ffc107;
-
-  /* Typography */
-  --font-main: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --line-height: 1.6;
-
-  /* Layout */
-  --container-max: 1140px;
-  --nav-height: 72px;
-  --radius: 8px;
-  --radius-lg: 12px;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
-  --shadow-nav: 0 2px 8px rgba(0,0,0,0.1);
-
-  /* Transitions */
-  --transition: 300ms ease;
-}
-
-/* ============================================
-   RESET & BASE
-   ============================================ */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: var(--nav-height);
-}
-
-body {
-  font-family: var(--font-main);
-  font-size: 1rem;
-  line-height: var(--line-height);
-  color: var(--color-gray-800);
-  background: var(--color-white);
-  -webkit-font-smoothing: antialiased;
-}
-
-img { max-width: 100%; height: auto; display: block; }
-
-a {
-  color: var(--color-primary-light);
-  text-decoration: none;
-  transition: color var(--transition);
-}
-a:hover { color: var(--color-primary); }
-
-/* ============================================
-   LAYOUT
-   ============================================ */
-.container {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.section-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--color-gray-900);
-  text-align: center;
-  margin-bottom: 0.75rem;
-}
-
-.section-subtitle {
-  font-size: 1.125rem;
-  color: var(--color-gray-600);
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 3rem;
-}
-
-/* ============================================
-   NAVBAR
-   ============================================ */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--nav-height);
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(8px);
-  z-index: 1000;
-  transition: box-shadow var(--transition);
-}
-
-.navbar.scrolled {
-  box-shadow: var(--shadow-nav);
-}
-
-.nav-container {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: var(--color-primary);
-  font-weight: 700;
-  font-size: 1.25rem;
-}
-.nav-logo:hover { color: var(--color-primary); }
-
-.nav-logo img {
-  max-height: 48px;
-  width: auto;
-}
-
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  list-style: none;
-}
-
-.nav-link {
-  color: var(--color-gray-800);
-  font-weight: 500;
-  font-size: 0.95rem;
-  padding: 0.25rem 0;
-  position: relative;
-  transition: color var(--transition);
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--color-primary-light);
-  transition: width var(--transition);
-}
-
-.nav-link:hover,
-.nav-link.active {
-  color: var(--color-primary-light);
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
-}
-
-/* Hamburger */
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  z-index: 1001;
-}
-
-.nav-toggle span {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--color-gray-800);
-  transition: transform var(--transition), opacity var(--transition);
-}
-
-.nav-toggle.active span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.nav-toggle.active span:nth-child(2) {
-  opacity: 0;
-}
-.nav-toggle.active span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* Mobile nav */
-@media (max-width: 1023px) {
-  .nav-toggle { display: flex; }
-
-  .nav-menu {
-    position: fixed;
-    top: var(--nav-height);
-    left: 0;
-    right: 0;
-    background: var(--color-white);
-    flex-direction: column;
-    padding: 1.5rem;
-    gap: 0;
-    box-shadow: var(--shadow-md);
-    transform: translateY(-120%);
-    transition: transform var(--transition);
+  <link rel="canonical" href="https://cleaningtechsolutions.com/">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cleaning Tech | Industrial Cleaning Solutions">
+  <meta property="og:description" content="Premium industrial cleaning chemicals and sustainable Tennant scrubber recycling services for Costco warehouses nationwide.">
+  <meta property="og:image" content="https://cleaningtechsolutions.com/logo.png">
+  <meta property="og:url" content="https://cleaningtechsolutions.com/">
+  <meta property="og:site_name" content="Cleaning Tech">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cleaning Tech | Industrial Cleaning Solutions">
+  <meta name="twitter:description" content="Premium industrial cleaning chemicals and sustainable Tennant scrubber recycling services for Costco warehouses nationwide.">
+  <meta name="twitter:image" content="https://cleaningtechsolutions.com/logo.png">
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Cleaning Tech",
+    "description": "Premium industrial cleaning chemicals and sustainable Tennant scrubber recycling services for Costco warehouses nationwide.",
+    "url": "https://cleaningtechsolutions.com",
+    "telephone": "+1-714-841-1861",
+    "email": "steve@cleaning-tech.com",
+    "image": "https://cleaningtechsolutions.com/logo.png",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "US"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "United States"
+    }
   }
-
-  .nav-menu.active {
-    transform: translateY(0);
-  }
-
-  .nav-link {
-    display: block;
-    padding: 0.75rem 0;
-    font-size: 1.1rem;
-  }
-}
-
-/* ============================================
-   HERO
-   ============================================ */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 6rem 1.5rem 4rem;
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-sky) 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Subtle pattern overlay */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 40px,
-    rgba(255,255,255,0.03) 40px,
-    rgba(255,255,255,0.03) 80px
-  );
-  pointer-events: none;
-}
-
-.hero-content {
-  position: relative;
-  max-width: 720px;
-}
-
-.hero-content h1 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--color-white);
-  line-height: 1.2;
-  margin-bottom: 1.25rem;
-}
-
-.hero-content p {
-  font-size: 1.2rem;
-  color: rgba(255,255,255,0.85);
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
-
-.hero-video {
-  margin-top: 2.5rem;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  max-width: 640px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-video video {
-  width: 100%;
-  display: block;
-}
-
-/* ============================================
-   BUTTONS
-   ============================================ */
-.btn {
-  display: inline-block;
-  padding: 0.875rem 2rem;
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all var(--transition);
-  border: none;
-  font-family: var(--font-main);
-  text-align: center;
-}
-
-.btn-primary {
-  background: var(--color-accent);
-  color: var(--color-white);
-}
-
-.btn-primary:hover {
-  background: var(--color-accent-hover);
-  color: var(--color-white);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(211,47,47,0.3);
-}
-
-/* ============================================
-   CARD GRID
-   ============================================ */
-.card-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-.card {
-  background: var(--color-white);
-  border: 1px solid var(--color-gray-100);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  transition: transform var(--transition), box-shadow var(--transition);
-  box-shadow: var(--shadow-sm);
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-}
-
-.card-icon {
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, var(--color-sky), var(--color-primary));
-  border-radius: var(--radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.25rem;
-  color: var(--color-white);
-}
-
-.card-icon svg {
-  width: 28px;
-  height: 28px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.card h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-gray-900);
-  margin-bottom: 0.75rem;
-}
-
-.card p {
-  color: var(--color-gray-600);
-  line-height: 1.6;
-}
-
-/* Placeholder content styling */
-.placeholder {
-  background: var(--color-placeholder-bg);
-  border-left: 3px solid var(--color-placeholder-border);
-  padding: 0.75rem 1rem;
-  border-radius: 0 var(--radius) var(--radius) 0;
-  font-style: italic;
-  color: #856404;
-  font-size: 0.9rem;
-}
-
-/* ============================================
-   SECTIONS
-   ============================================ */
-.section-chemicals {
-  background: var(--color-gray-50);
-  padding: 5rem 0;
-}
-
-/* Chemical card color coding */
-.card--sanitation {
-  background: #f1f8f1;
-  border-left: 3px solid #2E7D32;
-}
-.card--sanitation .card-icon {
-  background: linear-gradient(135deg, #2E7D32, #1B5E20);
-}
-
-.card--degreaser {
-  background: #fff8f1;
-  border-left: 3px solid #E65100;
-}
-.card--degreaser .card-icon {
-  background: linear-gradient(135deg, #E65100, #BF360C);
-}
-
-.card--defoaming {
-  background: #f0f7ff;
-  border-left: 3px solid #0047AB;
-}
-.card--defoaming .card-icon {
-  background: linear-gradient(135deg, var(--color-sky), var(--color-primary));
-}
-
-.section-scrubbers {
-  background: var(--color-white);
-  padding: 5rem 0;
-}
-
-.section-scrubbers .card-icon {
-  background: linear-gradient(135deg, var(--color-accent), #8B0000);
-}
-
-.section-contact {
-  background: var(--color-gray-50);
-  padding: 5rem 0;
-}
-
-/* ============================================
-   CONTACT FORM
-   ============================================ */
-.contact-form {
-  max-width: 720px;
-  margin: 0 auto;
-  background: var(--color-white);
-  border: 1px solid var(--color-gray-100);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem;
-  box-shadow: var(--shadow-sm);
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-gray-800);
-  margin-bottom: 0.375rem;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--color-gray-200);
-  border-radius: var(--radius);
-  font-family: var(--font-main);
-  font-size: 1rem;
-  color: var(--color-gray-800);
-  background: var(--color-white);
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--color-primary-light);
-  box-shadow: 0 0 0 3px rgba(33,150,243,0.15);
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.form-submit {
-  text-align: center;
-}
-
-.form-note {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  color: var(--color-gray-600);
-}
-
-.form-note a {
-  font-weight: 600;
-}
-
-.form-message {
-  text-align: center;
-  padding: 1rem;
-  border-radius: var(--radius);
-  margin-top: 1rem;
-  font-weight: 600;
-  display: none;
-}
-
-.form-message.success {
-  display: block;
-  background: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #a5d6a7;
-}
-
-.form-message.error {
-  display: block;
-  background: #ffebee;
-  color: #c62828;
-  border: 1px solid #ef9a9a;
-}
-
-.btn-primary:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* ============================================
-   FOOTER
-   ============================================ */
-.footer {
-  background: var(--color-primary-dark);
-  color: rgba(255,255,255,0.7);
-  padding: 2rem 0;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-.footer a {
-  color: rgba(255,255,255,0.9);
-  font-weight: 600;
-}
-.footer a:hover { color: var(--color-white); }
-
-/* ============================================
-   SCROLL ANIMATIONS
-   ============================================ */
-.animate-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.animate-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (min-width: 768px) {
-  .hero-content h1 { font-size: 3rem; }
-  .section-title { font-size: 2.25rem; }
-  .card-grid { grid-template-columns: repeat(2, 1fr); }
-  .form-grid { grid-template-columns: 1fr 1fr; }
-  .form-group-full { grid-column: 1 / -1; }
-}
-
-@media (min-width: 1024px) {
-  .hero-content h1 { font-size: 3.5rem; }
-  .section-title { font-size: 2.5rem; }
-  .card-grid { grid-template-columns: repeat(3, 1fr); }
-}
-  </style>
+  </script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- ====== NAVBAR ====== -->
   <header class="navbar" id="navbar">
@@ -612,7 +56,7 @@ a:hover { color: var(--color-primary); }
         <span></span>
         <span></span>
       </button>
-      <nav class="nav-menu">
+      <nav class="nav-menu" aria-label="Main navigation">
         <a href="#chemicals" class="nav-link">Chemicals</a>
         <a href="#scrubbers" class="nav-link">Scrubbers</a>
         <a href="#contact" class="nav-link">Contact Us</a>
@@ -620,7 +64,7 @@ a:hover { color: var(--color-primary); }
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
 
     <!-- ====== HERO ====== -->
     <section class="hero" id="hero">
@@ -629,7 +73,7 @@ a:hover { color: var(--color-primary); }
         <p>Premium cleaning chemicals and sustainable Tennant scrubber recycling services for Costco warehouses nationwide. Expert technical support from a team that understands your operation.</p>
         <a href="#contact" class="btn btn-primary">Get in Touch</a>
         <div class="hero-video">
-          <video autoplay loop muted playsinline>
+          <video autoplay loop muted playsinline poster="poster.jpg" preload="metadata">
             <source src="IMG_2088_1770796089083.mp4" type="video/mp4">
           </video>
         </div>
@@ -645,7 +89,7 @@ a:hover { color: var(--color-primary); }
 
           <div class="card card--sanitation animate-in">
             <div class="card-icon">
-              <svg viewBox="0 0 24 24"><path d="M9 3h6v5.5l3.5 6.5a3 3 0 0 1-2.6 4.5H8.1a3 3 0 0 1-2.6-4.5L9 8.5V3z"/><line x1="9" y1="3" x2="15" y2="3"/><line x1="10" y1="6" x2="14" y2="6"/></svg>
+              <svg viewBox="0 0 24 24" role="img" aria-label="Chemical flask"><path d="M9 3h6v5.5l3.5 6.5a3 3 0 0 1-2.6 4.5H8.1a3 3 0 0 1-2.6-4.5L9 8.5V3z"/><line x1="9" y1="3" x2="15" y2="3"/><line x1="10" y1="6" x2="14" y2="6"/></svg>
             </div>
             <h3>Sanitation Chemicals</h3>
             <p>Our full line of sanitation chemicals is formulated to meet the demands of high-traffic warehouse environments. From broad-spectrum disinfectants to targeted surface sanitizers, each product is designed for effective application on floors, equipment, and high-touch areas. All formulations meet OSHA and EPA standards, with clear labeling and SDS documentation to support your compliance requirements.</p>
@@ -653,7 +97,7 @@ a:hover { color: var(--color-primary); }
 
           <div class="card card--degreaser animate-in">
             <div class="card-icon">
-              <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 17l-6.5 4 2-7.5L2 9h7z"/></svg>
+              <svg viewBox="0 0 24 24" role="img" aria-label="Industrial strength star"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 17l-6.5 4 2-7.5L2 9h7z"/></svg>
             </div>
             <h3>Heavy-Duty Industrial Degreaser</h3>
             <p>Our heavy-duty industrial degreaser cuts through grease, oil, and grime without harsh fumes or caustic chemicals. Safe for use on sealed concrete, epoxy coatings, and metal surfaces, it delivers professional results at dilution ratios from 1:10 for tough buildup to 1:40 for routine maintenance. Ideal for warehouse floors, loading docks, and equipment cleaning—anywhere performance and worker safety matter most.</p>
@@ -661,7 +105,7 @@ a:hover { color: var(--color-primary); }
 
           <div class="card card--defoaming animate-in">
             <div class="card-icon">
-              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 8v4m0 0v4m-3-5h6" stroke="white" fill="none"/></svg>
+              <svg viewBox="0 0 24 24" role="img" aria-label="Defoaming tablet"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 8v4m0 0v4m-3-5h6" stroke="white" fill="none"/></svg>
             </div>
             <h3>Defoaming Powder Tablets</h3>
             <p>Our fast-acting defoaming tablets dissolve quickly in recovery tanks to eliminate foam buildup and keep your machine running at peak efficiency. Simply drop one tablet per 10 gallons of tank capacity before each use. Designed for seamless compatibility with all Tennant walk-behind and ride-on scrubbers, these tablets protect your vacuum motor while extending equipment life. Contact us today to place your order or set up automatic delivery.</p>
@@ -680,7 +124,7 @@ a:hover { color: var(--color-primary); }
 
           <div class="card animate-in">
             <div class="card-icon">
-              <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              <svg viewBox="0 0 24 24" role="img" aria-label="Checkmark"><path d="M20 6L9 17l-5-5"/></svg>
             </div>
             <h3>We Accept All Tennant Models</h3>
             <p>We accept all Tennant models and parts. Have broken down Tennant spare parts cluttering up your warehouse? We offer free pick-up for parts as well as machines.</p>
@@ -688,7 +132,7 @@ a:hover { color: var(--color-primary); }
 
           <div class="card animate-in">
             <div class="card-icon">
-              <svg viewBox="0 0 24 24"><path d="M7.5 12L12 7.5 16.5 12M12 7.5v9"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+              <svg viewBox="0 0 24 24" role="img" aria-label="Recycling arrows"><path d="M7.5 12L12 7.5 16.5 12M12 7.5v9"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
             </div>
             <h3>Sustainable Recycling</h3>
             <p>All Tennant machines are sustainably recycled in a professional and ethical manner with no harm to the environment.</p>
@@ -696,7 +140,7 @@ a:hover { color: var(--color-primary); }
 
           <div class="card animate-in">
             <div class="card-icon">
-              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <svg viewBox="0 0 24 24" role="img" aria-label="Phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             </div>
             <h3>One-Call Pickups</h3>
             <p>We pride ourselves on our extremely fast and efficient nationwide scrubber recycling. With one phone call that old broken down machine can be dispatched for pickup and out of your warehouse.</p>
@@ -771,117 +215,7 @@ a:hover { color: var(--color-primary); }
     </div>
   </footer>
 
-  <script>
-    /* ============================================
-       NAVBAR SCROLL EFFECT
-       ============================================ */
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
-    }, { passive: true });
-
-    /* ============================================
-       MOBILE NAV TOGGLE
-       ============================================ */
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-
-    navToggle.addEventListener('click', () => {
-      const isOpen = navMenu.classList.toggle('active');
-      navToggle.classList.toggle('active', isOpen);
-      navToggle.setAttribute('aria-expanded', isOpen);
-    });
-
-    navMenu.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-        navToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    /* ============================================
-       ACTIVE NAV LINK HIGHLIGHTING
-       ============================================ */
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          navLinks.forEach(link => {
-            link.classList.toggle('active',
-              link.getAttribute('href') === '#' + entry.target.id
-            );
-          });
-        }
-      });
-    }, { rootMargin: '-50% 0px -50% 0px' });
-
-    sections.forEach(section => sectionObserver.observe(section));
-
-    /* ============================================
-       SCROLL ANIMATIONS
-       ============================================ */
-    const animateObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          animateObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.animate-in').forEach(el => {
-      animateObserver.observe(el);
-    });
-
-    /* ============================================
-       FORMSUBMIT.CO AJAX HANDLER
-       ============================================ */
-    const CONTACT_EMAIL = 'steve@cleaning-tech.com';
-    const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/' + CONTACT_EMAIL;
-
-    document.getElementById('contact-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const form = e.target;
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const messageDiv = document.getElementById('form-message');
-
-      // Reset message
-      messageDiv.className = 'form-message';
-      messageDiv.textContent = '';
-
-      // Disable button while submitting
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
-
-      fetch(FORMSUBMIT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form)))
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          messageDiv.className = 'form-message success';
-          messageDiv.textContent = 'Thank you! Your message has been sent. We\'ll be in touch shortly.';
-          form.reset();
-        } else {
-          throw new Error('Submission failed');
-        }
-      })
-      .catch(() => {
-        messageDiv.className = 'form-message error';
-        messageDiv.textContent = 'Something went wrong. Please call us at (714) 841-1861 or email steve@cleaning-tech.com directly.';
-      })
-      .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Message';
-      });
-    });
-  </script>
+  <script src="script.js" defer></script>
 
 </body>
 </html>
